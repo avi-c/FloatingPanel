@@ -1011,7 +1011,7 @@ extension TabBarContentViewController: FloatingPanelControllerDelegate {
         vc.view.layoutIfNeeded() // MUST
     }
 
-    func floatingPanelDidChangePosition(_ vc: FloatingPanelController) {
+    func floatingPanelDidChangePosition(_ vc: FloatingPanelController, previousPosition: FloatingPanelPosition) {
         guard self.tabBarItem.tag == 2 else { return }
 
         switch tab3Mode {

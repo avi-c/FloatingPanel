@@ -12,7 +12,7 @@ public protocol FloatingPanelControllerDelegate: class {
     // if it returns nil, FloatingPanelController uses the default behavior
     func floatingPanel(_ vc: FloatingPanelController, behaviorFor newCollection: UITraitCollection) -> FloatingPanelBehavior?
 
-    func floatingPanelDidChangePosition(_ vc: FloatingPanelController) // changed the settled position in the model layer
+    func floatingPanelDidChangePosition(_ vc: FloatingPanelController, previousPosition: FloatingPanelPosition) // changed the settled position in the model layer
 
     /// Asks the delegate if dragging should begin by the pan gesture recognizer.
     func floatingPanelShouldBeginDragging(_ vc: FloatingPanelController) -> Bool
@@ -44,7 +44,7 @@ public extension FloatingPanelControllerDelegate {
     func floatingPanel(_ vc: FloatingPanelController, behaviorFor newCollection: UITraitCollection) -> FloatingPanelBehavior? {
         return nil
     }
-    func floatingPanelDidChangePosition(_ vc: FloatingPanelController) {}
+    func floatingPanelDidChangePosition(_ vc: FloatingPanelController, previousPosition: FloatingPanelPosition) {}
     func floatingPanelShouldBeginDragging(_ vc: FloatingPanelController) -> Bool {
         return true
     }

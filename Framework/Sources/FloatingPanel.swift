@@ -27,7 +27,7 @@ class FloatingPanel: NSObject, UIGestureRecognizerDelegate {
     private(set) var state: FloatingPanelPosition = .hidden {
         didSet {
             if let vc = viewcontroller {
-                vc.delegate?.floatingPanelDidChangePosition(vc)
+                vc.delegate?.floatingPanelDidChangePosition(vc, previousPosition: oldValue)
             }
         }
     }
