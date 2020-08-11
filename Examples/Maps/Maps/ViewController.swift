@@ -107,6 +107,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             let progress = max(0.0, min((tipY  - y) / 44.0, 1.0))
             self.searchVC.tableView.alpha = progress
         }
+        debugPrint("NearbyPosition : ",vc.nearbyPosition)
     }
 
     func floatingPanelWillBeginDragging(_ vc: FloatingPanelController) {
@@ -148,11 +149,9 @@ class SearchPanelViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.placeholder = "Search for a place or address"
-        let textField = searchBar.value(forKey: "_searchField") as! UITextField
-        textField.font = UIFont(name: textField.font!.fontName, size: 15.0)
+        searchBar.setSearchText(fontSize: 15.0)
 
         hideHeader()
-
     }
 
     override func viewDidLayoutSubviews() {
@@ -179,7 +178,7 @@ class SearchPanelViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 100
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -190,12 +189,10 @@ class SearchPanelViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.iconImageView.image = UIImage(named: "mark")
                 cell.titleLabel.text = "Marked Location"
                 cell.subTitleLabel.text = "Golden Gate Bridge, San Francisco"
-            case 1:
+            default:
                 cell.iconImageView.image = UIImage(named: "like")
                 cell.titleLabel.text = "Favorites"
                 cell.subTitleLabel.text = "0 Places"
-            default:
-                break
             }
         }
         return cell
@@ -272,5 +269,17 @@ class SearchHeaderView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.clipsToBounds = true
+    }
+}
+
+extension UISearchBar {
+    func setSearchText(fontSize: CGFloat) {
+        if #available(iOS 13, *) {
+            let font = searchTextField.font
+            searchTextField.font = font?.withSize(fontSize)
+        } else {
+            let textField = value(forKey: "_searchField") as! UITextField
+            textField.font = textField.font?.withSize(fontSize)
+        }
     }
 }
