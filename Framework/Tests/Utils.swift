@@ -28,7 +28,7 @@ class FloatingPanelTestDelegate: FloatingPanelControllerDelegate {
     func floatingPanel(_ vc: FloatingPanelController, behaviorFor newCollection: UITraitCollection) -> FloatingPanelBehavior? {
         return behavior
     }
-    func floatingPanelDidChangePosition(_ vc: FloatingPanelController) {
+    func floatingPanelDidChangePosition(_ vc: FloatingPanelController, previousPosition: FloatingPanelPosition) {
         position = vc.position
     }
 }
